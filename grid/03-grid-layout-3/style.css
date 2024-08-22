@@ -1,10 +1,14 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .container {
   text-align: center;
+  display: grid;
+  grid: 100px 50px 10fr 100px / 1fr 4fr;
+  gap: 4px;
 }
 
 .container div {
@@ -17,15 +21,30 @@
 
 .header {
   background-color: #393f4d;
+  display:grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+  grid-column: 1/-1;
 }
 
 .menu ul,
 .menu li {
   font-size: 16px;
+  list-style-type: none;
+}
+
+.menu ul{
+  display: grid;
+  grid-auto-flow: column;
+  grid-column: 2/-1;
+  grid-auto-columns: 1fr;
 }
 
 .sidebar {
   background-color: #C50208;
+  display: grid;
+  gap: 50px;
+  grid-row: 2/-2;
 }
 
 .sidebar .photo {
@@ -34,6 +53,7 @@
   font-size: 12px;
   font-weight: normal;
   border-radius: 10px;
+  align-content: center;
 }
 
 
@@ -42,6 +62,7 @@
   color: black;
   font-size: 16px;
   font-weight: normal;
+  align-content: center;
 }
 
 .nav {
@@ -52,9 +73,27 @@
   font-size: 16px;
   text-transform: uppercase;
 }
+.nav ul{
+  list-style-type: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column: 2/-1;
+}
 
 .article {
   background-color: #bccbde;
+  grid-row: 3/-2;
+  display: grid;
+  /*
+  -Auto-flow is set to row by default meaning grid items will make new rows and will fill the existing rows first before filling the next column
+  -if there arent enough rows, they will be created implicitly (grid-auto-rows to specify size of implicitly created rows)
+  -the autofit makes the number of columns dynamic and increases based on the available space
+  -when enough space is available it adds a new column with the min size
+  -and when more space is available it uses the bigger size 1 fr
+  until the minimum size is available again to create a new column*/
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 200px;
+  gap: 15px;
 }
 
 .article p {
@@ -62,6 +101,9 @@
   font-family: sans-serif;
   color: white;
   text-align: left;
+}
+.article p:not(.title){
+  margin-top: 15px;
 }
 
 .article .card {
@@ -83,6 +125,7 @@
 
 .footer {
   background-color: #393f4d;
+  grid-column: 1/-1;
 }
 
 .footer p {
